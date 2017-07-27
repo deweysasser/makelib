@@ -23,6 +23,7 @@ RELEASE_NOTES=ReleaseNotes.md
 VERSION?=$(shell date -u "+%Y/%m/%d %H:%M:%S")
 VERSION_STRING?=$(VERSION)
 VERSION_TAG=$(shell echo -n $(strip $(VERSION_STRING)) | tr -c "A-Za-z0-9_-" ".")
+GPG_AVAILABLE=$(shell test -d ~/.gnupg && echo Y || echo N)
 
 # The current branch
 GIT_BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
@@ -55,9 +56,15 @@ major-release minor-release patch-release: .release .release/checkout .release/m
 
 .release/finish:
 
+ifeq ($(GPG_AVAILABLE),Y)
+.release/tag:
+	git tag -s -m "$(USER) creating release $(VERSION_STRING)"  $(TAG_PREFIX)$(VERSION_TAG)
+	touch $@
+else
 .release/tag:
 	git tag $(TAG_PREFIX)$(VERSION_TAG)
 	touch $@
+endif
 
 .release:
 	mkdir $@
