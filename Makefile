@@ -14,6 +14,8 @@ include makefiles/standard.mk
 
 # Use semantic versioning template
 include makefiles/semver.mk
+# Alternatively, you could comment out the above and use date-based versioning instead
+#include makefiles/datever.mk
 
 # and GIT release tools
 include makefiles/git-release.mk
