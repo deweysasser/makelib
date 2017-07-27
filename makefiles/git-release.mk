@@ -20,7 +20,7 @@
 # Various settings -- customize to your environment
 RELEASE_BRANCH?=release
 RELEASE_NOTES=ReleaseNotes.md
-VERSION?=$(shell date -u "+%Y/%m/%d %H:%M:%S")
+VERSION?=$(shell date -u "+%Y/%m/%d %H:%M:%SZ")
 VERSION_STRING?=$(VERSION)
 VERSION_TAG=$(shell echo -n $(strip $(VERSION_STRING)) | tr -c "A-Za-z0-9_-" ".")
 GPG_AVAILABLE=$(shell test -d ~/.gnupg && echo Y || echo N)
